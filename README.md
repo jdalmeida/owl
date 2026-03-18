@@ -8,6 +8,7 @@ Biblioteca full-stack para coleta de feedback com highlight de UI em React.
 - **@owl/react** - Componentes React, hooks e cliente API
 - **@owl/server** - Handlers framework-agnósticos, Admin UI e InMemoryAdapter
 - **@owl/sqlite** - Adapter SQLite (requer Bun)
+- **@owl/postgres** - Adapter PostgreSQL (postgres.js)
 
 ## Instalação
 
