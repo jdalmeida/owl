@@ -71,6 +71,7 @@
       "version": "0.1.0",
       "dependencies": {
         "@owl/core": "workspace:*",
+        "@owl/trama": "workspace:*",
       },
       "devDependencies": {
         "next": "^15.1.0",
@@ -86,6 +87,17 @@
     },
     "packages/sqlite": {
       "name": "@owl/sqlite",
+      "version": "0.1.0",
+      "dependencies": {
+        "@owl/core": "workspace:*",
+      },
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "typescript": "^5",
+      },
+    },
+    "packages/trama": {
+      "name": "@owl/trama",
       "version": "0.1.0",
       "dependencies": {
         "@owl/core": "workspace:*",
@@ -236,6 +248,8 @@
     "@owl/server": ["@owl/server@workspace:packages/server"],
 
     "@owl/sqlite": ["@owl/sqlite@workspace:packages/sqlite"],
+
+    "@owl/trama": ["@owl/trama@workspace:packages/trama"],
 
     "@rollup/rollup-android-arm-eabi": ["@rollup/rollup-android-arm-eabi@4.59.0", "", { "os": "android", "cpu": "arm" }, "sha512-upnNBkA6ZH2VKGcBj9Fyl9IGNPULcjXRlg0LLeaioQWueH30p6IXtJEbKAgvyv+mJaMxSm1l6xwDXYjpEMiLMg=="],
 

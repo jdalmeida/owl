@@ -1,12 +1,12 @@
 // @author João Gabriel de Almeida
 
 import { NextRequest, NextResponse } from "next/server";
-import type { OwlStorageAdapter } from "@owl/core";
+import type { CreateHandlersOptions } from "./handlers.js";
 import { createHandlers } from "./handlers.js";
 import { createServeAdmin } from "./serve-admin.js";
 
-export interface CreateNextHandlersOptions {
-  storage: OwlStorageAdapter;
+export interface CreateNextHandlersOptions
+  extends Pick<CreateHandlersOptions, "storage"> {
   basePath?: string;
   /** Base path for admin UI (e.g. /api/owl/admin). Defaults to basePath + /admin */
   adminBasePath?: string;
@@ -14,11 +14,11 @@ export interface CreateNextHandlersOptions {
 }
 
 export function createNextHandlers(options: CreateNextHandlersOptions) {
-  const { storage, basePath = "/api/owl", adminBasePath, auth } = options;
+  const { storage: storageOption, basePath = "/api/owl", adminBasePath, auth } = options;
   const adminPath = adminBasePath ?? `${basePath.replace(/\/$/, "")}/admin`;
 
   const handlers = createHandlers({
-    storage,
+    storage: storageOption,
     basePath,
     auth: auth
       ? async (req) => {

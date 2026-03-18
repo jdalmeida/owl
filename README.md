@@ -9,11 +9,18 @@ Biblioteca full-stack para coleta de feedback com highlight de UI em React.
 - **@owl/server** - Handlers framework-agnósticos, Admin UI e InMemoryAdapter
 - **@owl/sqlite** - Adapter SQLite (requer Bun)
 - **@owl/postgres** - Adapter PostgreSQL (postgres.js)
+- **@owl/trama** - Adapter que envia feedbacks ao Trama como insights
 
 ## Instalação
 
 ```bash
 bun add @owl/core @owl/react @owl/server
+```
+
+Para integração com Trama (incluída em @owl/server como padrão quando storage é omitido):
+
+```bash
+bun add @owl/trama
 ```
 
 ## Uso Rápido
@@ -71,6 +78,33 @@ const handlers = createNextHandlers({
     return session.user;
   },
 });
+```
+
+### Integração com Trama
+
+Quando omitir `storage`, os feedbacks são enviados ao Trama (https://tramaai.com) como insights. Configure no ambiente:
+
+```bash
+TRAMA_API_KEY=trama_sk_...
+```
+
+A API key é obtida em Configurações > Integrar no workspace do Trama. A chave permanece apenas no backend.
+
+```ts
+// Sem storage = usa Trama adapter (TRAMA_API_KEY no .env)
+const handlers = createNextHandlers({ basePath: "/api/owl" });
+```
+
+Para usar Trama explicitamente (com URL customizada):
+
+```ts
+import { createTramaAdapter } from "@owl/trama";
+
+const storage = createTramaAdapter({
+  url: "https://tramaai.com",
+  apiKey: process.env.TRAMA_API_KEY!,
+});
+const handlers = createNextHandlers({ storage, basePath: "/api/owl" });
 ```
 
 ## Build

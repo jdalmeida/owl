@@ -21,7 +21,8 @@
     "build:admin": "cd admin && bun run build"
   },
   "dependencies": {
-    "@owl/core": "workspace:*"
+    "@owl/core": "workspace:*",
+    "@owl/trama": "workspace:*"
   },
   "peerDependencies": {
     "next": ">=14"

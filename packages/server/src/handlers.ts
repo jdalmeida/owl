@@ -5,6 +5,7 @@ import type {
   CreateFeedbackInput,
   ListFeedbackOptions,
 } from "@owl/core";
+import { createTramaAdapter } from "@owl/trama";
 
 export interface HandlerRequest {
   method: string;
@@ -21,9 +22,24 @@ export interface HandlerResponse {
 }
 
 export interface CreateHandlersOptions {
-  storage: OwlStorageAdapter;
+  /** Storage adapter. When omitted, uses Trama adapter with TRAMA_API_KEY from env (URL padrão: https://tramaai.com). */
+  storage?: OwlStorageAdapter;
   basePath?: string;
   auth?: (req: HandlerRequest) => Promise<unknown>;
+}
+
+function resolveStorage(storage?: OwlStorageAdapter): OwlStorageAdapter {
+  if (storage) {
+    return storage;
+  }
+  const apiKey = process.env.TRAMA_API_KEY;
+  if (!apiKey) {
+    throw new Error(
+      "Configure TRAMA_API_KEY no ambiente, ou passe um storage adapter para createHandlers."
+    );
+  }
+  const url = "https://tramaai.com";
+  return createTramaAdapter({ url, apiKey });
 }
 
 function parseJsonBody(body: unknown): CreateFeedbackInput | null {
@@ -45,7 +61,8 @@ function parseQuery(url: string): Record<string, string> {
 }
 
 export function createHandlers(options: CreateHandlersOptions) {
-  const { storage, basePath = "/api/owl", auth } = options;
+  const { basePath = "/api/owl", auth } = options;
+  const storage = resolveStorage(options.storage);
   const base = basePath.replace(/\/$/, "");
 
   async function postFeedback(req: HandlerRequest, res: HandlerResponse): Promise<void> {
