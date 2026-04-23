@@ -13,7 +13,7 @@
   },
   "files": ["dist"],
   "scripts": {
-    "build": "bunx tsup src/index.ts --format esm --dts --clean"
+    "build": "bun x tsup src/index.ts --format esm --dts --clean"
   },
   "dependencies": {
     "@owl/core": "workspace:*",
