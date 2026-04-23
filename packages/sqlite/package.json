@@ -13,7 +13,7 @@
   },
   "files": ["dist"],
   "scripts": {
-    "build": "bunx tsup src/index.ts --format esm --dts --clean --external bun:sqlite"
+    "build": "bun x tsup src/index.ts --format esm --dts --clean --external bun:sqlite"
   },
   "dependencies": {
     "@owl/core": "workspace:*"

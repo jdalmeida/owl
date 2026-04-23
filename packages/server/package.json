@@ -17,8 +17,8 @@
   },
   "files": ["dist", "admin-dist"],
   "scripts": {
-    "build": "bunx tsup src/index.ts src/next.ts --format esm --dts --clean --external @owl/core && bun run build:admin",
-    "build:admin": "cd admin && bun run build"
+    "build": "bun x tsup src/index.ts src/next.ts --format esm --dts --clean --external @owl/core && bun run build:admin",
+    "build:admin": "cd admin && bun install && bun run build"
   },
   "dependencies": {
     "@owl/core": "workspace:*",
