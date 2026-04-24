@@ -44,7 +44,10 @@ export function useElementSelector({
     if (!overlay) return;
 
     const handleMouseMove = (e: MouseEvent) => {
+      const originalPointerEvents = overlay.style.pointerEvents;
+      overlay.style.pointerEvents = "none";
       const target = document.elementFromPoint(e.clientX, e.clientY);
+      overlay.style.pointerEvents = originalPointerEvents;
       if (target && target !== overlay && !overlay.contains(target)) {
         setHoveredElement(target);
       } else {
@@ -55,7 +58,10 @@ export function useElementSelector({
     const handleClick = (e: MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
+      const originalPointerEvents = overlay.style.pointerEvents;
+      overlay.style.pointerEvents = "none";
       const target = document.elementFromPoint(e.clientX, e.clientY);
+      overlay.style.pointerEvents = originalPointerEvents;
       if (target && target !== overlay && !overlay.contains(target)) {
         const highlight = captureHighlight(target);
         onSelect(highlight);
